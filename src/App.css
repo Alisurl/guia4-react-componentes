@@ -16,7 +16,30 @@
     outline-offset: 2px;
   }
 }
+/* --- MEJORA CREATIVA CON ASISTENCIA IA --- */
 
+/* Efecto hover suave con sombra elegante */
+.actividad-card, section > div, div[style*="border"] {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 12px;
+}
+
+.actividad-card:hover, section > div:hover, div[style*="border"]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Estilo para los botones de detalle */
+button {
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
 .hero {
   position: relative;
 
