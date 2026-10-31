@@ -1,58 +1,33 @@
-import { useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-export default function ActividadItem({ titulo, descripcion, tiempo }) {
-  const [completada, setCompletada] = useState(false);
-
-  const toggleEstado = () => {
-    setCompletada(!completada);
-  };
+export default function ActividadItem({ tarea }) {
+  // Asegura soporte tanto si 'tarea' es un texto directo o un objeto con título
+  const texto = typeof tarea === 'string' ? tarea : (tarea?.titulo || tarea?.nombre || 'Actividad');
+  const detalle = tarea?.descripcion || 'Completar la práctica asignada en el entorno de desarrollo.';
 
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '16px',
-      marginBottom: '12px',
-      borderRadius: '8px',
-      backgroundColor: completada ? '#f0fdf4' : '#ffffff',
-      border: completada ? '1px solid #86efac' : '1px solid #e2e8f0',
-      transition: 'all 0.25s ease'
-    }}>
-      <div style={{ maxWidth: '75%' }}>
-        <h4 style={{
-          margin: '0 0 6px 0',
-          fontSize: '1rem',
-          color: completada ? '#166534' : '#1e293b',
-          textDecoration: completada ? 'line-through' : 'none'
-        }}>
-          {titulo}
-        </h4>
-        <p style={{
-          margin: 0,
-          fontSize: '0.85rem',
-          color: completada ? '#15803d' : '#64748b'
-        }}>
-          {descripcion} • <em>Duración estimada: {tiempo}</em>
+    <motion.article
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02, borderColor: '#0284c7' }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.3 }}
+      style={{
+        backgroundColor: '#ffffff',
+        border: '1.5px solid #e2e8f0',
+        borderRadius: '10px',
+        padding: '1rem',
+        marginBottom: '0.85rem',
+        cursor: 'pointer'
+      }}
+    >
+      <strong style={{ color: '#0369a1', fontSize: '1rem' }}>📌 {texto}</strong>
+      {typeof tarea !== 'string' && (
+        <p style={{ margin: '0.35rem 0 0', color: '#64748b', fontSize: '0.875rem' }}>
+          {detalle}
         </p>
-      </div>
-
-      <button
-        onClick={toggleEstado}
-        style={{
-          padding: '8px 14px',
-          borderRadius: '6px',
-          border: 'none',
-          cursor: 'pointer',
-          fontWeight: '600',
-          fontSize: '0.85rem',
-          backgroundColor: completada ? '#22c55e' : '#e2e8f0',
-          color: completada ? '#ffffff' : '#475569',
-          transition: 'background-color 0.2s'
-        }}
-      >
-        {completada ? '✓ Completada' : 'Marcar lista'}
-      </button>
-    </div>
+      )}
+    </motion.article>
   );
 }
